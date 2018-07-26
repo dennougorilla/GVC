@@ -38,12 +38,20 @@ def stream_start():
     stream.stop_stream()
     stream.close()
     p.terminate() 
+
+def run_statusbar():
+    status.configure(text="Now processing..")
+
+def kill_statusbar():
+    status.configure(text="")
+
 def press_button_start():
     global is_streaming
     global my_thread
 
     if not is_streaming:
         is_streaming = True
+        run_statusbar()
         my_thread = threading.Thread(target=stream_start)
         my_thread.start()
 
@@ -54,6 +62,7 @@ def press_button_stop():
     if is_streaming:
         is_streaming = False
         my_thread.join()
+        kill_statusbar()
         
 is_streaming = False
 my_thread = None
@@ -62,10 +71,11 @@ root = Tk()
 root.title("GVC")
 root.geometry("400x300")
 
+status = Label(root, text="", borderwidth=2, relief="groove")
+status.pack(side=BOTTOM, fill=X)
 button_start = Button(root, text="START", command=press_button_start)
-button_start.grid()
-
+button_start.pack()
 button_stop = Button(root, text="STOP", command=press_button_stop)
-button_stop.grid()
+button_stop.pack()
 
 root.mainloop()
