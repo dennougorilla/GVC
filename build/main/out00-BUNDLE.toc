@@ -1,0 +1,1 @@
+([('main', '/Users/Dennougorilla/Dropbox/dev/VCG/dist/main', 'EXECUTABLE')],)
