@@ -1,0 +1,4 @@
+__pycache__/
+build/
+app.py
+pyaudio_test.py
